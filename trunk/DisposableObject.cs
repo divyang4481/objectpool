@@ -95,16 +95,12 @@ namespace SystemUtilities
         {
             if (_handlers != null)
             {
-                ICollection<OnDisposedEventHandler> handlers = null;
+                OnDisposedEventHandler[] handlers = null;
                 Monitor.Enter(this);
                 try
                 {
-                    handlers = new List<OnDisposedEventHandler>(_handlers.Count);
-                    foreach (OnDisposedEventHandler handler in _handlers)
-                    {
-                        if (handler != null)
-                            handlers.Add(handler);
-                    }
+                    handlers = new OnDisposedEventHandler[_handlers.Count];
+                    _handlers.CopyTo(handlers, 0);
                     _handlers.Clear();
                 }
                 finally
