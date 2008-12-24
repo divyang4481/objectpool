@@ -107,7 +107,7 @@ namespace SystemUtilities.Collections.Generic
 
         #region IEnumerable<TValue> Members
 
-        public IEnumerator<TValue> GetEnumerator()
+        public virtual IEnumerator<TValue> GetEnumerator()
         {
             return _cache.GetEnumerator();
         }
