@@ -186,16 +186,12 @@ namespace SystemUtilities.Collections.Generic
 
         protected virtual void OnError(OnErrorEventArgs e)
         {
-            ICollection<OnErrorEventHandler> handlers = null;
+            OnErrorEventHandler[] handlers = null;
             Monitor.Enter(_errorHandlers);
             try
             {
-                handlers = new List<OnErrorEventHandler>(_errorHandlers.Count);
-                foreach (OnErrorEventHandler handler in _errorHandlers)
-                {
-                    if (handler != null)
-                        handlers.Add(handler);
-                }
+                handlers = new OnErrorEventHandler[_errorHandlers.Count];
+                _errorHandlers.CopyTo(handlers, 0);
                 _errorHandlers.Clear();
             }
             finally
@@ -214,16 +210,12 @@ namespace SystemUtilities.Collections.Generic
 
         protected virtual void OnFilled(OnFilledEventArgs e)
         {
-            ICollection<OnFilledEventHandler> handlers = null;
+            OnFilledEventHandler[] handlers = null;
             Monitor.Enter(_filledHandlers);
             try
             {
-                handlers = new List<OnFilledEventHandler>(_filledHandlers.Count);
-                foreach (OnFilledEventHandler handler in _filledHandlers)
-                {
-                    if (handler != null)
-                        handlers.Add(handler);
-                }
+                handlers = new OnFilledEventHandler[_filledHandlers.Count];
+                _filledHandlers.CopyTo(handlers, 0);
                 _filledHandlers.Clear();
             }
             finally
