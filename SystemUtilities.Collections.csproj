@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FD3EE8DD-C788-4A54-8798-D4D936A81027}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SystemUtilities</RootNamespace>
+    <AssemblyName>SystemUtilities.Collections</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Caching\Cache.cs" />
+    <Compile Include="Collections\Generic\Enumerator.cs" />
+    <Compile Include="Collections\Generic\IObjectPool.cs" />
+    <Compile Include="Collections\Generic\ObjectPool.cs" />
+    <Compile Include="Collections\Generic\ObjectPoolDelegate.cs" />
+    <Compile Include="Collections\Generic\SynchronizedEnumerator.cs" />
+    <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Configuration\ConverterSection.cs" />
+    <Compile Include="Configuration\ConverterSettings.cs" />
+    <Compile Include="Configuration\ThreadPoolSection.cs" />
+    <Compile Include="Configuration\ThreadPoolSettings.cs" />
+    <Compile Include="Data\IFillable.cs" />
+    <Compile Include="Data\IResultSet.cs" />
+    <Compile Include="Data\OnFilledEventArgs.cs" />
+    <Compile Include="Data\OnFilledEventHandler.cs" />
+    <Compile Include="DisposableObject.cs" />
+    <Compile Include="ExceptionHelper.cs" />
+    <Compile Include="IDisposable.cs" />
+    <Compile Include="OnDisposedEventArgs.cs" />
+    <Compile Include="OnDisposedEventHandler.cs" />
+    <Compile Include="OnErrorEventArgs.cs" />
+    <Compile Include="OnErrorEventHandler.cs" />
+    <Compile Include="Resources.cs" />
+    <Compile Include="Serialization\BaseConverter.cs" />
+    <Compile Include="Serialization\Converter.cs" />
+    <Compile Include="Serialization\DeserializableMember.cs" />
+    <Compile Include="Serialization\DeserializableMemberList.cs" />
+    <Compile Include="Serialization\DeserializablObject.cs" />
+    <Compile Include="Serialization\IConverter.cs" />
+    <Compile Include="Serialization\IDeserializable.cs" />
+    <Compile Include="Serialization\ResultSet.cs" />
+    <Compile Include="Serialization\SerializableMember.cs" />
+    <Compile Include="Serialization\SerializableMemberList.cs" />
+    <Compile Include="Serialization\SerializableObject.cs" />
+    <Compile Include="Serialization\SerializationHelper.cs" />
+    <Compile Include="Serialization\SerializedAttribute.cs" />
+    <Compile Include="Serialization\TypeConverter.cs" />
+    <Compile Include="Threading\AsyncHelper.cs" />
+    <Compile Include="Threading\BaseLock.cs" />
+    <Compile Include="Threading\IWorkRequest.cs" />
+    <Compile Include="Threading\ReadLock.cs" />
+    <Compile Include="Threading\ReadOnlyLock.cs" />
+    <Compile Include="Threading\ThreadPool.cs" />
+    <Compile Include="Threading\ThreadPoolDelegate.cs" />
+    <Compile Include="Threading\WorkRequestDelegate.cs" />
+    <Compile Include="Threading\WriteLock.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+</Project>
