@@ -200,9 +200,12 @@ namespace SystemUtilities.Collections.Generic
             Monitor.Enter(_errorHandlers);
             try
             {
-                handlers = new OnErrorEventHandler[_errorHandlers.Count];
-                _errorHandlers.CopyTo(handlers, 0);
-                _errorHandlers.Clear();
+                if (_errorHandlers.Count > 0)
+                {
+                    handlers = new OnErrorEventHandler[_errorHandlers.Count];
+                    _errorHandlers.CopyTo(handlers, 0);
+                    _errorHandlers.Clear();
+                }
             }
             finally
             {
@@ -225,9 +228,12 @@ namespace SystemUtilities.Collections.Generic
             Monitor.Enter(_filledHandlers);
             try
             {
-                handlers = new OnFilledEventHandler[_filledHandlers.Count];
-                _filledHandlers.CopyTo(handlers, 0);
-                _filledHandlers.Clear();
+                if (_filledHandlers.Count > 0)
+                {
+                    handlers = new OnFilledEventHandler[_filledHandlers.Count];
+                    _filledHandlers.CopyTo(handlers, 0);
+                    _filledHandlers.Clear();
+                }
             }
             finally
             {
