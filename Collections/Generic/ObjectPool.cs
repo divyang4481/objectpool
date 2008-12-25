@@ -10,12 +10,22 @@ namespace SystemUtilities.Collections.Generic
 {
     public abstract class ObjectPool<TKey, TValue> : IObjectPool<TKey, TValue>
     {
-        private readonly Cache<TKey, TValue> _cache = new Cache<TKey, TValue>();
+        private readonly Cache<TKey, TValue> _cache;
         private readonly ICollection<OnErrorEventHandler> _errorHandlers = new List<OnErrorEventHandler>();
         private readonly ICollection<OnFilledEventHandler> _filledHandlers = new List<OnFilledEventHandler>();
         private readonly Queue<IResultSet<TKey, TValue>> _updateRequests = new Queue<IResultSet<TKey, TValue>>();
         private bool _updateInProgress = false;
         private readonly object _syncLock = new object();
+
+        public ObjectPool()
+            : this(-1)
+        {
+        }
+
+        public ObjectPool(int capacity)
+        {
+            _cache = new Cache<TKey, TValue>(Timeout.Infinite, capacity);
+        }
 
         #region IObjectPool<TKey,TValue> Members
 
