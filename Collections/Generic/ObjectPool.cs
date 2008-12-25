@@ -173,7 +173,7 @@ namespace SystemUtilities.Collections.Generic
                         }
                     }
 
-                    if (exceptions != null)
+                    if (exceptions != null && exceptions.Count > 0)
                     {
                         OnError(new OnErrorEventArgs(exceptions));
                         exceptions.Clear();
