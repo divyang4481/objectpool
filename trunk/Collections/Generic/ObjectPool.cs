@@ -203,7 +203,8 @@ namespace SystemUtilities.Collections.Generic
             {
                 foreach (OnErrorEventHandler handler in handlers)
                 {
-                    AsyncHelper.FireAndForget(handler, this, e);
+                    if (handler != null)
+                        AsyncHelper.FireAndForget(handler, this, e);
                 }
             }
         }
@@ -227,7 +228,8 @@ namespace SystemUtilities.Collections.Generic
             {
                 foreach (OnFilledEventHandler handler in handlers)
                 {
-                    AsyncHelper.FireAndForget(handler, this, e);
+                    if (handler != null)
+                        AsyncHelper.FireAndForget(handler, this, e);
                 }
             }
         }

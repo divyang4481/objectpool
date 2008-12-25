@@ -112,7 +112,8 @@ namespace SystemUtilities
                 {
                     foreach (OnDisposedEventHandler handler in handlers)
                     {
-                        AsyncHelper.FireAndForget(handler, this, e);
+                        if (handler != null)
+                            AsyncHelper.FireAndForget(handler, this, e);
                     }
                 }
             }
