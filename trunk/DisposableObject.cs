@@ -93,28 +93,28 @@ namespace SystemUtilities
 
         protected virtual void OnDisposed(OnDisposedEventArgs e)
         {
-            if (_handlers != null)
+            OnDisposedEventHandler[] handlers = null;
+            Monitor.Enter(this);
+            try
             {
-                OnDisposedEventHandler[] handlers = null;
-                Monitor.Enter(this);
-                try
+                if (_handlers != null)
                 {
                     handlers = new OnDisposedEventHandler[_handlers.Count];
                     _handlers.CopyTo(handlers, 0);
                     _handlers.Clear();
                 }
-                finally
-                {
-                    Monitor.Exit(this);
-                }
+            }
+            finally
+            {
+                Monitor.Exit(this);
+            }
 
-                if (handlers != null)
+            if (handlers != null)
+            {
+                foreach (OnDisposedEventHandler handler in handlers)
                 {
-                    foreach (OnDisposedEventHandler handler in handlers)
-                    {
-                        if (handler != null)
-                            AsyncHelper.FireAndForget(handler, this, e);
-                    }
+                    if (handler != null)
+                        AsyncHelper.FireAndForget(handler, this, e);
                 }
             }
         }
