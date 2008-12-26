@@ -103,7 +103,6 @@ namespace SystemUtilities.Collections.Generic
                 _updateRequests.Enqueue(results);
                 if (!_updateInProgress)
                 {
-                    _updateInProgress = true;
                     AsyncHelper.FireAndForget(new ObjectPoolDelegate(ProcessUpdates), null);
                 }
             }
@@ -138,8 +137,8 @@ namespace SystemUtilities.Collections.Generic
             IResultSet<TKey, TValue> results = null;
             IEnumerator<KeyValuePair<TKey, TValue>> enumerator;
             KeyValuePair<TKey, TValue> item;
-            ICollection<Exception> exceptions = null;
-            while (_updateInProgress)
+
+            do
             {
                 Monitor.Enter(_syncLock);
                 try
@@ -150,6 +149,7 @@ namespace SystemUtilities.Collections.Generic
                     }
                     else
                     {
+                        _updateInProgress = true;
                         results = _updateRequests.Dequeue();
                     }
                 }
@@ -173,25 +173,15 @@ namespace SystemUtilities.Collections.Generic
                                 }
                                 catch (Exception e)
                                 {
-                                    if (exceptions == null)
-                                    {
-                                        exceptions = new List<Exception>();
-                                    }
-                                    exceptions.Add(e);
+                                    OnError(new OnErrorEventArgs(e));
                                 }
                             }
                         }
                     }
 
-                    if (exceptions != null && exceptions.Count > 0)
-                    {
-                        OnError(new OnErrorEventArgs(exceptions));
-                        exceptions.Clear();
-                    }
-
                     OnFilled(new OnFilledEventArgs());
                 }
-            }
+            } while (_updateInProgress);
         }
 
         protected virtual void OnError(OnErrorEventArgs e)
@@ -204,7 +194,6 @@ namespace SystemUtilities.Collections.Generic
                 {
                     handlers = new OnErrorEventHandler[_errorHandlers.Count];
                     _errorHandlers.CopyTo(handlers, 0);
-                    _errorHandlers.Clear();
                 }
             }
             finally

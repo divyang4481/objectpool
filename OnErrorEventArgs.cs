@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SystemUtilities
 {
     public sealed class OnErrorEventArgs : EventArgs
     {
-        private Exception[] _arr;
+        private Exception _e;
 
         internal OnErrorEventArgs(Exception e)
         {
-            _arr = new Exception[] { e };
+            _e = e;
         }
 
-        internal OnErrorEventArgs(ICollection<Exception> collect)
+        public Exception Exception
         {
-            _arr = new Exception[collect.Count];
-            collect.CopyTo(_arr, 0);
-        }
-
-        public Exception[] Exceptions
-        {
-            get { return _arr; }
+            get { return _e; }
         }
     }
 }
