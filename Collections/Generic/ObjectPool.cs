@@ -103,6 +103,7 @@ namespace SystemUtilities.Collections.Generic
                 _updateRequests.Enqueue(results);
                 if (!_updateInProgress)
                 {
+                    _updateInProgress = true;
                     AsyncHelper.FireAndForget(new ObjectPoolDelegate(ProcessUpdates), null);
                 }
             }
@@ -149,7 +150,6 @@ namespace SystemUtilities.Collections.Generic
                     }
                     else
                     {
-                        _updateInProgress = true;
                         results = _updateRequests.Dequeue();
                     }
                 }
