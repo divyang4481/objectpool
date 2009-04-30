@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Threading;
 
 namespace SystemUtilities.Configuration
 {
@@ -10,6 +11,7 @@ namespace SystemUtilities.Configuration
 
         private static ConverterSettings _converterSettings = null;
         private static ThreadPoolSettings _threadPoolSettings = null;
+        private static readonly object _syncLock = new object();
 
         public static ConverterSettings Converter
         {
@@ -17,7 +19,18 @@ namespace SystemUtilities.Configuration
             {
                 if (_converterSettings == null)
                 {
-                    _converterSettings = new ConverterSettings((ConverterSection)System.Configuration.ConfigurationManager.GetSection(CONVERTER_SECTION));
+                    Monitor.Enter(_syncLock);
+                    try
+                    {
+                        if (_converterSettings == null)
+                        {
+                            _converterSettings = new ConverterSettings((ConverterSection)System.Configuration.ConfigurationManager.GetSection(CONVERTER_SECTION));
+                        }
+                    }
+                    finally
+                    {
+                        Monitor.Exit(_syncLock);
+                    }
                 }
                 return _converterSettings;
             }
@@ -29,7 +42,18 @@ namespace SystemUtilities.Configuration
             {
                 if (_threadPoolSettings == null)
                 {
-                    _threadPoolSettings = new ThreadPoolSettings((ThreadPoolSection)System.Configuration.ConfigurationManager.GetSection(THREAD_POOL_SECTION));
+                    Monitor.Enter(_syncLock);
+                    try
+                    {
+                        if (_converterSettings == null)
+                        {
+                            _threadPoolSettings = new ThreadPoolSettings((ThreadPoolSection)System.Configuration.ConfigurationManager.GetSection(THREAD_POOL_SECTION));
+                        }
+                    }
+                    finally
+                    {
+                        Monitor.Exit(_syncLock);
+                    }
                 }
                 return _threadPoolSettings;
             }
